@@ -45,15 +45,15 @@ function deepClone(data) {
 
     if (dataType === 'Map') {
         const mapData = new Map();
-        data.forEach((d, i) => {
-            mapData.set(i, deepClone(d));
+        data.forEach((key, val) => {
+            mapData.set(key, deepClone(val));
         });
         return mapData;
     }
 
     if (dataType === 'Set') {
         const setData = new Set();
-        for (let val of data) {
+        for (let val of data.values()) {
             setData.add(deepClone(val));
         }
         return setData;
