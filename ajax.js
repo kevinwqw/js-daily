@@ -17,7 +17,7 @@ const ajax = (method, url) => {
     const xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.onreadystatechange = function (e) {
+    xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             return this.response;
         }
