@@ -37,13 +37,13 @@ class CompilerPlugin {
         compiler.plugin('compilation', (compilation, params) => {});
 
         /**
-         * "normal-module-factory" Provides general access the NormalModuleFactory instance.
+         * 该plugin提供获取NormalModuleFactory实例的方法.
          * 这是一个tapable的实例，所以他可以作为插件
          */
         compiler.plugin('normal-module-factory', (normalModuleFactory) => {});
 
         /**
-         * 该plugin提供获取ContextModuleFactory实例的方法，由于是tapable的实例，所以可以被plugined into
+         * 该plugin提供获取ContextModuleFactory实例的方法
          * 这是一个tapable的实例，所以他可以作为插件
          */
         compiler.plugin('context-module.factory', (contextModuleFactory) => {});
@@ -54,10 +54,17 @@ class CompilerPlugin {
          * Technically this is the hook that webpack uses internally to start the dep graph trace by invoking the EntryOptionPlugin.js during WebpackOptionsApply.js.
          * This invokes SingleEntryPlugin or MultiEntryPlugin or DynamicEntryPlugin which all use this "make" hook to add dependencies.
          */
+
+        /**
+         * 'make'这个hook在依赖树开始追踪前暴露出compilation
+         * 在Compilation中包含许多方便操作compilation的方法，如像compilation中添加'依赖'或'模块'
+         * 'make'是webpack在内部使用的钩子，通过在 WebpackOptionsApply.js 期间调用 EntryOptionPlugin.js 来启动依赖图跟踪
+         * 这会调用 SingleEntryPlugin 或 MultiEntryPlugin 或 DynamicEntryPlugin，它们都使用此’make'hook来添加依赖项
+         */
         compiler.plugin('make', () => {});
 
         /**
-         * The last step to "decorate", modify or move around modules before they are sent to the "seal" phase. You have access to the entire compilation still at that time
+         * 在seal之前最后操作modules的步骤，在此步骤仍可以操作整个compilation
          */
         compiler.plugin('after-compile', (compilation, cb) => {
             cb();
