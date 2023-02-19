@@ -9,10 +9,8 @@ class TemplatePlugin {
                 return moduleSource;
             });
 
-            compiler.plugin(compilation, (compilation, cb) => {
-                compilation.moduleTemplate.plugin('package', (moduleSource, module) => {
-                    return moduleSource;
-                });
+            compilation.moduleTemplate.plugin('package', (moduleSource, module) => {
+                return moduleSource;
             });
         });
     }
