@@ -5,18 +5,16 @@
  */
 Promise.prototype.any = (promiseArr) => {
     return new Promise((resolve, reject) => {
-        let isCompeleted = false;
-        const resArr = new Array(promiseArr.length).fill(undefined);
+        const total = promiseArr.length;
+        const resArr = new Array(total).fill(undefined);
+        let rejectCounter = 0;
         const onFullfilled = (data) => {
-            if (isCompeleted) return;
-            isCompeleted = true;
             resolve(data);
         };
 
         const onRejected = (reason, index) => {
-            if (isCompeleted) return;
-            resArr[index] = reason;
-            if (resArr.every((res) => res !== undefined)) reject('All promise were rejected');
+            rejectCounter++;
+            if (rejectCounter === total) reject('All promise were rejected');
         };
 
         promiseArr.forEach((promise) => (onFullfilled, promise.then((reason, index) => onRejected(reason, index))));
